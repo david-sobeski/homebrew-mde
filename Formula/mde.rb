@@ -17,8 +17,12 @@
 class Mde < Formula
   desc "Full-screen markdown editor for the terminal"
   homepage "https://github.com/david-sobeski/mde"
-  version "1.0.0"
   license "MIT"
+
+  head do
+    url "https://github.com/david-sobeski/mde.git", branch: "main"
+    depends_on "go" => :build
+  end
 
   on_macos do
     on_arm do
@@ -40,11 +44,6 @@ class Mde < Formula
       url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-linux-amd64.tar.gz"
       sha256 "a57dfd5ac1afd1142cab053c867daac35320fd7db7e99e9ab2090fcb1fef8ddd"
     end
-  end
-
-  head do
-    url "https://github.com/david-sobeski/mde.git", branch: "main"
-    depends_on "go" => :build
   end
 
   def install
