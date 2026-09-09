@@ -1,9 +1,13 @@
 # Homebrew formula for mde.
 #
-# It builds from the tagged source rather than shipping a binary, which is what
-# Homebrew prefers and what lets one formula serve Apple Silicon, Intel and
-# Linux from a single line. Go is a build dependency only: nothing is left
-# behind once the binary is compiled.
+# It installs the prebuilt binary from the GitHub release rather than
+# compiling: mde is a single static executable with no dependencies, so there
+# is nothing for a build to decide and nothing for the user to wait for. A tap
+# gets no bottles from Homebrew's build farm, and without them a source formula
+# would drag in the whole Go toolchain to produce a file that already exists.
+#
+# "brew install mde --HEAD" still builds from the current source, which is what
+# the head block below is for.
 #
 # Update it for a new release with:
 #
@@ -13,19 +17,42 @@
 class Mde < Formula
   desc "Full-screen markdown editor for the terminal"
   homepage "https://github.com/david-sobeski/mde"
-  url "https://github.com/david-sobeski/mde/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "7ed50c03d3214088f487eb4bbd08793c87202a0c51a1d9cdfec90956c8ff6e82"
+  version "1.0.0"
   license "MIT"
-  head "https://github.com/david-sobeski/mde.git", branch: "main"
 
-  depends_on "go" => :build
+  on_macos do
+    on_arm do
+      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-macos-arm64.tar.gz"
+      sha256 "91a20d3438990d21af909b472ff9bd4b84790dd7164810a63b09d04c1888a06f"
+    end
+    on_intel do
+      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-macos-amd64.tar.gz"
+      sha256 "516e0a4bef4785501219dad3f1fa891b3e0b90b76f2f6e0749accdba718a1b38"
+    end
+  end
+
+  on_linux do
+    on_arm do
+      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-linux-arm64.tar.gz"
+      sha256 "331dded03fa5a30419c5976f6f894241ea106ed86c6d6e9d39ae491ad2544a25"
+    end
+    on_intel do
+      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-linux-amd64.tar.gz"
+      sha256 "a57dfd5ac1afd1142cab053c867daac35320fd7db7e99e9ab2090fcb1fef8ddd"
+    end
+  end
+
+  head do
+    url "https://github.com/david-sobeski/mde.git", branch: "main"
+    depends_on "go" => :build
+  end
 
   def install
-    ldflags = %W[
-      -s -w
-      -X main.version=#{version}
-    ]
-    system "go", "build", *std_go_args(ldflags: ldflags.join(" "))
+    if build.head?
+      system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}")
+    else
+      bin.install "mde"
+    end
 
     # The sample vault and document are worth keeping: they are what makes the
     # graph and the wikilink navigation demonstrable straight after install.
@@ -43,9 +70,12 @@ class Mde < Formula
   end
 
   test do
-    assert_match "mde #{version}", shell_output("#{bin}/mde --version")
+    assert_match "mde", shell_output("#{bin}/mde --version")
 
-    (testpath/"note.md").write("# Title\n\nA [[wikilink]] and some **bold** text.\n")
+    (testpath/"note.md").write("# Title
+
+A [[wikilink]] and some **bold** text.
+")
     html = shell_output("#{bin}/mde --print #{testpath}/note.md")
     assert_match "<h1", html
     assert_match "<strong>bold</strong>", html
