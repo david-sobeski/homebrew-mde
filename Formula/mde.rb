@@ -1,13 +1,13 @@
 # Homebrew formula for mde.
 #
-# It installs the prebuilt binary from the GitHub release rather than
+# It installs the prebuilt binary from the download site rather than
 # compiling: mde is a single static executable with no dependencies, so there
 # is nothing for a build to decide and nothing for the user to wait for. A tap
 # gets no bottles from Homebrew's build farm, and without them a source formula
 # would drag in the whole Go toolchain to produce a file that already exists.
 #
-# "brew install mde --HEAD" still builds from the current source, which is what
-# the head block below is for.
+# The archives are the same ones the download page offers, checksummed against
+# the SHA256SUMS published beside them.
 #
 # Update it for a new release with:
 #
@@ -16,42 +16,33 @@
 # See docs/homebrew.md for how the tap is published.
 class Mde < Formula
   desc "Full-screen markdown editor for the terminal"
-  homepage "https://github.com/david-sobeski/mde"
+  homepage "https://flushodds.com/"
   license "MIT"
-
-  head do
-    url "https://github.com/david-sobeski/mde.git", branch: "main"
-    depends_on "go" => :build
-  end
 
   on_macos do
     on_arm do
-      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-macos-arm64.tar.gz"
-      sha256 "91a20d3438990d21af909b472ff9bd4b84790dd7164810a63b09d04c1888a06f"
+      url "https://flushodds.com/downloads/mde-1.0.0-macos-arm64.tar.gz"
+      sha256 "6855d4807f4dd3dae4b5a16fb62df07e52d0d7a2c51d56feac3ded5dcc9f2afc"
     end
     on_intel do
-      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-macos-amd64.tar.gz"
-      sha256 "516e0a4bef4785501219dad3f1fa891b3e0b90b76f2f6e0749accdba718a1b38"
+      url "https://flushodds.com/downloads/mde-1.0.0-macos-amd64.tar.gz"
+      sha256 "be2ef450eccfabce3ebaeaf23e568af75d10f4932a88276db22b085112895a7b"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-linux-arm64.tar.gz"
-      sha256 "331dded03fa5a30419c5976f6f894241ea106ed86c6d6e9d39ae491ad2544a25"
+      url "https://flushodds.com/downloads/mde-1.0.0-linux-arm64.tar.gz"
+      sha256 "8a4c744f51781d083d9dfd2b83421e367efb3d2d0f83c2df421abe1d313a854e"
     end
     on_intel do
-      url "https://github.com/david-sobeski/mde/releases/download/v1.0.0/mde-1.0.0-linux-amd64.tar.gz"
-      sha256 "a57dfd5ac1afd1142cab053c867daac35320fd7db7e99e9ab2090fcb1fef8ddd"
+      url "https://flushodds.com/downloads/mde-1.0.0-linux-amd64.tar.gz"
+      sha256 "12064d27f05094f5228287e6af81ac6b540395ebefff4f102d2bce1f6c6a5527"
     end
   end
 
   def install
-    if build.head?
-      system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}")
-    else
-      bin.install "mde"
-    end
+    bin.install "mde"
 
     # The sample vault and document are worth keeping: they are what makes the
     # graph and the wikilink navigation demonstrable straight after install.
