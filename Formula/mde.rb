@@ -17,6 +17,9 @@
 class Mde < Formula
   desc "Full-screen markdown editor for the terminal"
   homepage "https://flushodds.com/"
+  # Stated rather than scanned: the version is not the only number in a file
+      url "https://flushodds.com/downloads/mde-1.0.0-macos-arm64.tar.gz"
+  version "1.0.0"
   license "MIT"
 
   on_macos do
