@@ -17,8 +17,8 @@
 class Mde < Formula
   desc "Full-screen markdown editor for the terminal"
   homepage "https://flushodds.com/"
-  # Stated rather than scanned: the version is not the only number in a file
-      url "https://flushodds.com/downloads/mde-1.0.0-macos-arm64.tar.gz"
+  # Stated rather than scanned. The file names carry two numbers, and Homebrew
+  # picks the wrong one: it reads the 64 of arm64 as the version.
   version "1.0.0"
   license "MIT"
 
