@@ -25,22 +25,22 @@ class Mde < Formula
   on_macos do
     on_arm do
       url "https://flushodds.com/downloads/mde-1.0.1-macos-arm64.tar.gz"
-      sha256 "9718d6f1d0d5ea64a34b0573882b7765e309b33293e1e79000fb4ad28eb8fb32"
+      sha256 "f4805852ddc0eb37b355f24e7fa99bc5fb1513e98398a230f89976dd234b3706"
     end
     on_intel do
       url "https://flushodds.com/downloads/mde-1.0.1-macos-amd64.tar.gz"
-      sha256 "1eafbd42a7c5612c612e540e8c2b32299fc28cbf5d73e760f535b98288898cba"
+      sha256 "d7b953540de96b05c2a2df3f36f63008865e68458926f0efddcb1b47d57cb1a0"
     end
   end
 
   on_linux do
     on_arm do
       url "https://flushodds.com/downloads/mde-1.0.1-linux-arm64.tar.gz"
-      sha256 "97151ba6b7fc52d2aa8b3c8708bab30fbfa7f61b2a33a178e911c2c04e2e62f5"
+      sha256 "025caf843691970d4e641b486a54c7d24447c2c7bd813212f0c55bedecdb18e4"
     end
     on_intel do
       url "https://flushodds.com/downloads/mde-1.0.1-linux-amd64.tar.gz"
-      sha256 "400187d4705d9715332a2717a387f81065a2c84d629e85f38e4144bbc20f9903"
+      sha256 "4b0176c220621b8bb5381aa011c7514f9b9ac0ffdd4fced1eb6a9ff015a495a1"
     end
   end
 
