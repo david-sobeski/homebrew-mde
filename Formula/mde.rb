@@ -19,28 +19,28 @@ class Mde < Formula
   homepage "https://flushodds.com/"
   # Stated rather than scanned. The file names carry two numbers, and Homebrew
   # picks the wrong one: it reads the 64 of arm64 as the version.
-  version "1.0.2"
+  version "1.0.3"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://flushodds.com/downloads/mde-1.0.2-macos-arm64.tar.gz"
-      sha256 "15f4b33330692f338e09b9ac8420cc29de2c7de028dedf7719aa2137ba169bdf"
+      url "https://flushodds.com/downloads/mde-1.0.3-macos-arm64.tar.gz"
+      sha256 "447385c92739abd0fa987c2bdddb411b123def9120c84c46a24666fabd4084a2"
     end
     on_intel do
-      url "https://flushodds.com/downloads/mde-1.0.2-macos-amd64.tar.gz"
-      sha256 "f5c0862af201e8d4be32d8cb922475926872bef6222f97c2ac0fb1111531e6cd"
+      url "https://flushodds.com/downloads/mde-1.0.3-macos-amd64.tar.gz"
+      sha256 "3acc529dd90bcf2c80895215653ef7f05d9d71ad9cba75b36bf99918082a3385"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://flushodds.com/downloads/mde-1.0.2-linux-arm64.tar.gz"
-      sha256 "f662b5a51e1b35d69a7e9e232489f7afe193c5565e1e131fe6bbb6d8675965d5"
+      url "https://flushodds.com/downloads/mde-1.0.3-linux-arm64.tar.gz"
+      sha256 "04133f4c8a85bdcac820203948c8b813126ab0959f154a3d86e6771c162fa90c"
     end
     on_intel do
-      url "https://flushodds.com/downloads/mde-1.0.2-linux-amd64.tar.gz"
-      sha256 "30f244835cb13ed6a9fbb7a0340dbb5e6aac95bfa296ac172e8147b514af3520"
+      url "https://flushodds.com/downloads/mde-1.0.3-linux-amd64.tar.gz"
+      sha256 "22eeb1972e3692c5878edfdb10e5113c92f9dd21100a4fc9b643ca825706fcf6"
     end
   end
 
